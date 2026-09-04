@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minseo Ella Jang | Portfolio</title>
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- TAILWIND CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: '#00D26A',       
+            brandCyan: '#00E5FF',   
+            electric: '#8B5CF6',    
+            accentPink: '#EC4899',  
+            popYellow: '#EAB308',   
+            beliOrange: '#F97316',  
+            bgDark: '#0B0D10',      
+            cardDark: '#121418',    
+            borderDark: 'rgba(255,255,255,0.06)',
+            textMuted: '#888888'
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0B0D10;
+      color: #E5E5E5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* CUSTOM SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+    .hidden-view { display: none !important; }
+
+    /* DYNAMIC MOUSE SPOTLIGHT */
+    #mouse-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 820px;
+      height: 820px;
+      background: radial-gradient(circle closest-side, rgba(0, 210, 106, 0.18), rgba(139, 92, 246, 0.085), transparent 72%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+      transition: opacity 0.35s ease;
+      mix-blend-mode: screen;
+      filter: saturate(1.2) contrast(1.04);
+    }
+
+    /* ARCHITECTURAL DOT GRID */
+    .bg-grid-pattern {
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: linear-gradient(to bottom, black 10%, transparent 80%);
+      -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 80%);
+    }
+
+    /* FIGMA SELECTION BOUNDING BOX */
+    .figma-selection-box {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #00D26A;
+      padding: 0 10px;
+      border-radius: 1px;
+      margin: 0 4px;
+      transform: translateY(6px);
+      line-height: 1.1;
+    }
+    .figma-handle {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      background-color: #FFFFFF;
+      border: 1.5px solid #00D26A;
+      border-radius: 1px;
+    }
+    .handle-tl { top: -4.5px; left: -4.5px; }
+    .handle-tr { top: -4.5px; right: -4.5px; }
+    .handle-bl { bottom: -4.5px; left: -4.5px; }
+    .handle-br { bottom: -4.5px; right: -4.5px; }
+
+    /* COLLABORATIVE CURSOR */
+    .collab-cursor {
+      position: absolute;
+      bottom: -32px;
+      right: -12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      pointer-events: none;
+      z-index: 30;
+      animation: cursorHover 4s ease-in-out infinite;
+    }
+    @keyframes cursorHover {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(4px, 4px) rotate(-2deg); }
+    }
+
+    /* PROJECT CARDS */
+    .project-card {
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card .img-container {
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      background: #121316;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .card-factor:hover .img-container { border-color: rgba(0, 210, 106, 0.3); background: rgba(0, 210, 106, 0.03); transform: translateY(-6px); }
+    .card-factor:hover .project-title { color: #00D26A; }
+    
+    .card-beli:hover .img-container { border-color: rgba(249, 115, 22, 0.3); background: rgba(249, 115, 22, 0.03); transform: translateY(-6px); }
+    .card-beli:hover .project-title { color: #F97316; }
+
+    .project-card.dimmed {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+    .project-card.dimmed .img-container {
+      opacity: 0.18;
+      filter: grayscale(0.85) brightness(0.6);
+      transform: scale(0.985);
+    }
+    .project-card.dimmed .project-title,
+    .project-card.dimmed > p {
+      opacity: 0.48;
+    }
+
+    /* SCROLL REVEAL UTILITY */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MODAL OVERLAY */
+    #case-study-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: #0B0D10;
+      transform: translateY(100%);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+    #case-study-modal.open {
+      transform: translateY(0);
+    }
+
+    /* AI CHAT WIDGET */
+    #ai-widget {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      pointer-events: none;
+      transform-origin: bottom right;
+    }
+    #ai-widget.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    @media (max-width: 767px) {
+      body p {
+        word-spacing: 0.04em;
+        letter-spacing: 0.003em;
+      }
+      .beli-interview-copy {
+        word-spacing: 0.08em;
+        letter-spacing: 0.005em;
+      }
+    }
+    
+    /* IMAGE SLOT PLACEHOLDERS */
+    .image-slot {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      padding: 2rem;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body class="relative flex flex-col z-10 selection:bg-brand selection:text-black">
+
+  <!-- AMBIENT BACKGROUNDS -->
+  <div class="bg-grid-pattern"></div>
+  <div id="mouse-glow"></div>
+
+  <!-- HEADER -->
+  <nav class="w-full h-24 bg-[#0B0D10]/80 backdrop-blur-xl fixed top-0 z-50 transition-all duration-300">
+    <div class="max-w-[1100px] mx-auto w-full h-full flex justify-between items-center px-6 md:px-8">
+      
+      <!-- LOGO -->
+      <div class="flex items-center cursor-pointer group" onclick="switchView('work')">
+        <div class="hidden sm:flex flex-col leading-none">
+          <span class="font-sans font-semibold text-[13px] tracking-[0.18em] text-white uppercase">Minseo Ella Jang</span>
+          <span class="font-mono text-[9px] tracking-[0.22em] uppercase text-white/40 mt-1.5">Communication Design</span>
+        </div>
+      </div>
+      
+      <!-- NAV LINKS -->
+      <div class="flex items-center gap-2 font-sans text-xs font-semibold">
+        <button onclick="switchView('work')" id="nav-work" class="px-5 py-2.5 rounded-full bg-white text-black shadow-sm transition-all">Work</button>
+        <button onclick="switchView('profile')" id="nav-profile" class="px-5 py-2.5 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-all">Profile</button>
+      </div>
+      
+    </div>
+  </nav>
+
+  <!-- === VIEW 1: WORK === -->
+  <main id="view-work" class="view-container flex-grow pt-40 px-6 md:px-8 pb-32 max-w-[1100px] mx-auto w-full relative z-10">
+    
+    <!-- HIGH-END EDITORIAL HERO -->
+    <div class="w-full mb-24 md:mb-32 animate-fade-in-up">
+      <!-- MULTIDISCIPLINARY METADATA TAGS -->
+      <div class="flex flex-wrap items-center gap-3 mb-8">
+        <span class="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest border border-white/10 text-gray-400 bg-white/5">Digital UX</span>
+        <span class="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest border border-white/10 text-gray-400 bg-white/5">Brand</span>
+        <span class="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest border border-white/10 text-gray-400 bg-white/5">Visual</span>
+      </div>
+
+      <!-- SHORT, STRONG HOOK -->
+      <h1 class="text-5xl md:text-7xl lg:text-[6rem] font-sans font-bold tracking-tight text-white leading-none mb-6 max-w-5xl">
+        Intuitive systems.<br />
+        Bold
+        <span class="figma-selection-box mx-2 align-bottom">
+          <span class="figma-handle handle-tl"></span>
+          <span class="figma-handle handle-tr"></span>
+          <span class="figma-handle handle-bl"></span>
+          <span class="figma-handle handle-br"></span>
+          <!-- Gradient Text -->
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00D26A] to-[#00E5FF] relative z-10 font-bold tracking-tight pb-1">Visual</span>
+          
+          <div class="collab-cursor">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#00D26A">
+              <path d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 5.428z"/>
+            </svg>
+            <span class="bg-[#00D26A] text-[#050505] text-[10px] font-mono font-bold px-2 py-0.5 rounded-full shadow-sm ml-[-2px]">
+              ella
+            </span>
+          </div>
+        </span> craft.
+      </h1>
+      
+      <p class="font-sans text-base md:text-xl text-textMuted max-w-2xl leading-relaxed mt-8">
+        Designer creating thoughtful digital experiences <br class="hidden md:block">with a strong visual point of view.
+      </p>
+    </div>
+
+    <!-- ELEGANT FILTER DOCK -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6 reveal border-b border-borderDark pb-6">
+      <div class="space-y-2">
+        <span class="font-mono text-xs uppercase tracking-widest text-textMuted block">Selected Works</span>
+      </div>
+      <div class="flex flex-col items-start md:items-end gap-3">
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Filter by Category</span>
+        <div class="flex flex-nowrap gap-1.5 md:gap-2 font-sans text-[13px] md:text-xs whitespace-nowrap">
+          <button onclick="filterDiscipline('all')" id="btn-all" class="filter-btn active px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full bg-white text-black font-medium transition-colors">All</button>
+          <button onclick="filterDiscipline('uiux')" id="btn-uiux" class="filter-btn px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-colors">UI/UX</button>
+          <button onclick="filterDiscipline('branding')" id="btn-branding" class="filter-btn px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-colors">Branding</button>
+          <button onclick="filterDiscipline('graphic')" id="btn-graphic" class="filter-btn px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-colors">Graphics</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASYMMETRICAL PROJECTS GRID (FACTOR & BELI) -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-x-12">
+
+      <!-- PROJECT 1: FACTOR -->
+      <div data-category="uiux" onclick="openCaseStudy('factor')" class="project-card card-factor md:col-span-7 cursor-pointer reveal">
+        <div class="img-container aspect-[4/3] md:aspect-[16/11] mb-6 relative bg-[#050505]">
+          <img src="assets/img-01.webp" alt="Factor project cover" class="w-full h-full object-cover object-center block">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-5 left-5">
+            <span class="font-mono text-[9px] uppercase text-white tracking-widest bg-black/60 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-md">Product UX</span>
+          </div>
+        </div>
+        <h3 class="font-sans font-medium text-xl text-white mb-2 project-title transition-colors">Factor Web Experience</h3>
+        <p class="font-sans text-textMuted text-sm md:text-[15px] leading-relaxed">Streamlining the subscription journey.</p>
+      </div>
+
+      <!-- PROJECT 2: BELI -->
+      <div data-category="uiux" onclick="openCaseStudy('beli')" class="project-card card-beli md:col-span-5 cursor-pointer md:mt-24 reveal">
+        <div class="img-container aspect-[4/3] mb-6 relative bg-[#050505]">
+          <img src="assets/img-02.webp" alt="Beli project cover" class="w-full h-full object-cover object-center block">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-5 left-5">
+            <span class="font-mono text-[9px] uppercase text-white tracking-widest bg-black/60 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-md">App Design</span>
+          </div>
+        </div>
+        <h3 class="font-sans font-medium text-xl text-white mb-2 project-title transition-colors">Beli App Redesign</h3>
+        <p class="font-sans text-textMuted text-sm md:text-[15px] leading-relaxed">A personal food memory archive.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- === VIEW 2: PROFILE === -->
+  <section id="view-profile" class="view-container hidden-view flex-grow pt-40 px-6 md:px-12 pb-32 max-w-[1000px] mx-auto w-full relative z-10">
+    <div class="mb-8 md:mb-20 animate-fade-in-up">
+      <h1 class="text-4xl md:text-6xl font-sans font-semibold text-white mb-6 tracking-tight">Hello, I'm Ella.</h1>
+      <p class="text-xl md:text-3xl text-gray-300 leading-snug font-sans font-medium mb-10 max-w-none tracking-tight">
+        Where human-centered thinking meets visual expression.
+      </p>
+      <p class="text-sm md:text-base text-textMuted font-sans leading-loose max-w-2xl">
+        <span class="md:hidden">My practice spans digital experiences, brand identity<br>and visual design. I approach design by balancing<br>how something works with how it looks, feels, and communicates—creating experiences that are intuitive, distinctive, and memorable. Currently studying Communication Design & HCI at Washington University<br>in St. Louis.</span>
+        <span class="hidden md:inline">My practice spans digital experiences, brand identity, and visual design. <br class="hidden md:block">I approach design by balancing how something works with how it looks, feels, and communicates—creating experiences that are intuitive, distinctive, and memorable. <br class="hidden md:block">Currently studying Communication Design & HCI at Washington University in St. Louis.</span>
+      </p>
+    </div>
+
+    <!-- Editorial 3-Column Split -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 reveal border-t border-borderDark pt-8 md:pt-16">
+      <div>
+        <span class="font-mono text-xs md:text-sm text-brand uppercase tracking-widest font-semibold block mb-4 border-b border-borderDark pb-3">01 // Digital Experience</span>
+        <p class="text-sm text-textMuted font-sans leading-relaxed">UI/UX design, user research, interaction systems, wireframing, and prototyping.</p>
+      </div>
+      <div>
+        <span class="font-mono text-xs md:text-sm text-popYellow uppercase tracking-widest font-semibold block mb-4 border-b border-borderDark pb-3">02 // Brand & Identity</span>
+        <p class="text-sm text-textMuted font-sans leading-relaxed">Visual strategy, identity systems, typography, art direction, and cohesive brand experiences.</p>
+      </div>
+      <div>
+        <span class="font-mono text-xs md:text-sm text-accentPink uppercase tracking-widest font-semibold block mb-4 border-b border-borderDark pb-3">03 // Visual Exploration</span>
+        <p class="text-sm text-textMuted font-sans leading-relaxed">Graphic design, motion, illustration, creative coding, and experimentation across emerging media.</p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-4 font-sans text-sm font-medium reveal">
+      <a href="mailto:ella.j@wustl.edu" class="px-8 py-3.5 rounded-full bg-white text-black hover:scale-105 transition-transform shadow-lg">Get in touch</a>
+      <a href="https://www.linkedin.com/in/ella-jang-797243325/" target="_blank" rel="noopener noreferrer" class="px-8 py-3.5 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors">LinkedIn</a>
+      <a href="Min%20Seo(Ella)%20Jang%20Resume.pdf" target="_blank" rel="noopener noreferrer" class="px-8 py-3.5 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors">Resume (PDF)</a>
+    </div>
+  </section>
+
+  <!-- === SLEEK FLOATING AI BUTTON === -->
+  <button onclick="toggleAIChat(event)" class="fixed bottom-12 right-6 md:right-8 z-40 bg-cardDark border border-borderDark text-white rounded-full pl-3 pr-4 py-2.5 shadow-2xl flex items-center gap-3 hover:bg-[#111] hover:border-white/20 transition-all">
+    <div class="flex items-center justify-center w-6 h-6 bg-black rounded-full border border-white/10">
+      <span class="w-1.5 h-1.5 bg-brand rounded-full"></span>
+    </div>
+    <span class="font-mono font-medium text-[10px] uppercase tracking-widest text-gray-300">Ella's AI Agent</span>
+  </button>
+
+  <!-- === REFINED AI CHAT PANEL === -->
+  <div id="ai-widget" class="fixed bottom-28 right-6 md:right-8 w-[calc(100vw-3rem)] max-w-[340px] bg-[#0A0A0A] border border-white/10 rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden backdrop-blur-2xl">
+    
+    <!-- Chat Header -->
+    <div class="bg-[#050505] p-4 flex justify-between items-center border-b border-borderDark">
+      <div class="flex items-center gap-2">
+        <span class="font-sans font-semibold text-xs text-white tracking-wide">Ella's AI Agent</span>
+        <span class="px-1.5 py-0.5 rounded text-[8px] font-mono border border-brand/30 text-brand uppercase tracking-wider">Online</span>
+      </div>
+      <button onclick="toggleAIChat(event)" class="text-gray-500 hover:text-white p-1 transition-colors">✕</button>
+    </div>
+
+    <!-- Chat Messages -->
+    <div id="ai-messages" class="p-5 h-[280px] overflow-y-auto flex flex-col gap-4 font-sans text-sm bg-transparent">
+      <div class="self-start w-fit max-w-[85%] bg-white/5 rounded-2xl rounded-tl-sm px-4 py-3.5 text-gray-300 leading-relaxed text-xs border border-white/5">
+        Hello! I'm Ella's AI Agent. Ask me about her design projects, skills, experience, or design philosophy.
+      </div>
+    </div>
+
+    <!-- Chat Input Area -->
+    <div class="p-4 bg-[#050505] border-t border-borderDark">
+      <div class="flex gap-2 mb-3 overflow-x-auto pb-1 hide-scrollbar">
+        <button onclick="askPrompt('Design philosophy?')" class="whitespace-nowrap px-3 py-1.5 rounded-full border border-white/10 text-gray-400 hover:text-white hover:bg-white/5 transition-all text-[10px] font-mono uppercase tracking-wide">Philosophy</button>
+        <button onclick="askPrompt('Core skills?')" class="whitespace-nowrap px-3 py-1.5 rounded-full border border-white/10 text-gray-400 hover:text-white hover:bg-white/5 transition-all text-[10px] font-mono uppercase tracking-wide">Skills</button>
+      </div>
+      <form onsubmit="handleChatSubmit(event)" class="relative">
+        <input type="text" id="ai-user-input" placeholder="Type a message..." class="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand/50 text-xs pr-10 transition-colors">
+        <button type="submit" class="absolute right-1.5 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-brand transition-colors">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- === FULLSCREEN CASE STUDY OVERLAY === -->
+  <div id="case-study-modal" class="flex flex-col">
+    <!-- Sticky Header -->
+    <div class="sticky top-0 w-full h-28 md:h-32 bg-[#050505]/95 backdrop-blur-xl border-b border-borderDark z-50 flex justify-center">
+      <div class="max-w-[900px] w-full h-full flex justify-between items-center px-6 pt-5 md:pt-6 pb-3">
+        <!-- Enlarged modal title -->
+        <div class="font-mono text-sm md:text-lg uppercase tracking-widest text-white font-bold" id="case-study-title-header">Case Study</div>
+        
+        <!-- Enlarged close button -->
+        <button onclick="closeCaseStudy()" class="text-[10px] md:text-xs font-mono uppercase tracking-widest text-gray-300 hover:text-white transition-colors flex items-center gap-1.5 bg-white/[0.03] hover:bg-white/[0.07] px-3 py-1.5 rounded-full border border-white/10">
+          CLOSE <span class="text-sm md:text-base leading-none">✕</span>
+        </button>
+      </div>
+    </div>
+    
+    <div id="case-study-content" class="w-full max-w-[900px] mx-auto px-6 py-16 md:py-24">
+      <!-- Content injected by JS -->
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // 1. DYNAMIC MOUSE SPOTLIGHT
+    const glow = document.getElementById('mouse-glow');
+    let tick = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+    
+    function animateGlow() {
+      tick += 0.02;
+      const r1 = Math.floor(Math.sin(tick) * 127 + 128);
+      const g1 = Math.floor(Math.sin(tick + 2) * 127 + 128);
+      const b1 = Math.floor(Math.sin(tick + 4) * 127 + 128);
+      
+      const r2 = Math.floor(Math.sin(tick + 3) * 127 + 128);
+      const g2 = Math.floor(Math.sin(tick + 5) * 127 + 128);
+      const b2 = Math.floor(Math.sin(tick + 1) * 127 + 128);
+      
+      glow.style.background = `radial-gradient(circle closest-side, rgba(${r1}, ${g1}, ${b1}, 0.18), rgba(${r2}, ${g2}, ${b2}, 0.085), transparent 72%)`;
+      requestAnimationFrame(animateGlow);
+    }
+    animateGlow();
+
+    // 2. SCROLL REVEAL ANIMATIONS
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // 3. VIEW SWITCHER
+    function switchView(viewName) {
+      document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden-view'));
+      document.getElementById('view-' + viewName).classList.remove('hidden-view');
+
+      const workBtn = document.getElementById('nav-work');
+      const profileBtn = document.getElementById('nav-profile');
+
+      if(viewName === 'work') {
+        workBtn.className = "px-5 py-2.5 rounded-full bg-white text-black shadow-sm transition-all";
+        profileBtn.className = "px-5 py-2.5 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-all";
+      } else {
+        profileBtn.className = "px-5 py-2.5 rounded-full bg-white text-black shadow-sm transition-all";
+        workBtn.className = "px-5 py-2.5 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-all";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // 4. FILTER LOGIC
+    function filterDiscipline(category) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-white', 'text-black');
+        btn.classList.add('text-gray-400');
+      });
+      const activeBtn = document.getElementById('btn-' + category);
+      activeBtn.classList.remove('text-gray-400');
+      activeBtn.classList.add('active', 'bg-white', 'text-black');
+
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        const cardCategories = card.getAttribute('data-category');
+        if (category === 'all' || cardCategories.includes(category)) {
+          card.classList.remove('dimmed');
+        } else {
+          card.classList.add('dimmed');
+        }
+      });
+    }
+
+    // 5. AI CHATBOT LOGIC
+    function toggleAIChat(event) {
+      if(event) event.stopPropagation();
+      const chatWin = document.getElementById('ai-widget');
+      chatWin.classList.toggle('open');
+    }
+
+    function askPrompt(question) {
+      document.getElementById('ai-user-input').value = question;
+      handleChatSubmit(new Event('submit'));
+    }
+
+    function handleChatSubmit(e) {
+      if(e) e.preventDefault();
+      const input = document.getElementById('ai-user-input');
+      const msg = input.value.trim();
+      if(!msg) return;
+
+      const container = document.getElementById('ai-messages');
+      
+      const userBubble = document.createElement('div');
+      userBubble.className = "self-end ml-auto w-fit max-w-[85%] bg-white text-black rounded-2xl rounded-br-sm px-4 py-3 text-left leading-relaxed shadow-sm text-xs";
+      userBubble.innerText = msg;
+      container.appendChild(userBubble);
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      setTimeout(() => {
+        let reply = "I can tell you about Ella's design philosophy, multidisciplinary skill set, or the Factor and Beli projects!";
+        const q = msg.toLowerCase();
+
+        if(q.includes('philosophy') || q.includes('approach')) {
+          reply = "💡 Ella approaches design holistically—believing strong digital experiences rely on seamless synergy between logical interface architecture, memorable brand systems, and expressive visual storytelling.";
+        } else if(q.includes('skill') || q.includes('discipline')) {
+          reply = "🎨 Core Skill Set:\n\n1. Product UX: User research, wireframing, design systems.\n2. Brand Identity: Logo marks, color theory, brand guidelines.\n3. Visual Art: Editorial layouts, graphic design, print.";
+        } else if(q.includes('education') || q.includes('washu')) {
+          reply = "🎓 Education: Washington University in St. Louis, pursuing a BFA in Communication Design with a Minor in Human-Computer Interaction (HCI). She holds a 3.78 GPA.";
+        } else if(q.includes('factor')) {
+          reply = "🥗 Factor Redesign: Ella minimized onboarding complexity and improved meal discovery by shifting payment to occur *after* meal selection and creating an optional plan recommendation popup.";
+        } else if(q.includes('beli')) {
+          reply = "🍱 Beli App: She refined the tracking and rating criteria into a personal food memory archive, introducing multi-attribute star ratings and a detailed calendar/map recap interface.";
+        }
+
+        const botBubble = document.createElement('div');
+        botBubble.className = "self-start mr-auto w-fit max-w-[85%] bg-[#121316] border border-white/5 text-gray-300 rounded-2xl rounded-tl-sm px-4 py-3.5 leading-relaxed whitespace-pre-line text-xs shadow-sm";
+        botBubble.innerText = reply;
+        container.appendChild(botBubble);
+        container.scrollTop = container.scrollHeight;
+      }, 400);
+    }
+
+    // 6. CASE STUDY DATA 
+    const caseStudies = {
+      'factor': `
+        <div class="mb-5 border-b border-borderDark pb-6">
+          <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-5 font-semibold">Website UX / UI Redesign</div>
+          <h1 class="text-4xl md:text-6xl font-sans font-medium text-white mb-5 tracking-tight">Factor Website Redesign</h1>
+          <p class="text-lg md:text-xl font-sans font-normal text-gray-400 mb-7 max-w-4xl leading-relaxed">Redesigned the UX structure to minimize complexity and deliver a more seamless,<br>efficient experience aligned with Factor's core value proposition.</p>
+          <div class="grid grid-cols-1 md:grid-cols-[max-content_max-content_max-content] gap-y-5 md:gap-y-0 md:gap-x-14 font-sans text-sm text-white pt-4 md:pt-6">
+            <div class="md:whitespace-nowrap"><span class="block text-textMuted mb-1 text-[10px] uppercase tracking-widest font-mono">Date</span>2026.01 - 2026.02</div>
+            <div class="md:whitespace-nowrap"><span class="block text-textMuted mb-1 text-[10px] uppercase tracking-widest font-mono">Contribution</span>Personal Project · 100% UX Planning & UI Design</div>
+            <div class="md:whitespace-nowrap"><span class="block text-textMuted mb-1 text-[10px] uppercase tracking-widest font-mono">Tools</span>Figma · Illustrator</div>
+          </div>
+        </div>
+
+        <div class="space-y-20 md:space-y-24 font-sans text-gray-300">
+          <!-- 01 / HERO -->
+          <section>
+            <img src="assets/img-03.webp" alt="Factor branded hero product image" class="w-[118%] md:w-[126%] max-w-none h-auto block -ml-[9%] md:-ml-[13%] border-0 rounded-none">
+          </section>
+
+          <!-- 02 / ABOUT FACTOR -->
+          <section style="margin-top: 0.1rem;">
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Overview</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-6">01. About Factor</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="p-6 md:p-7 rounded-2xl bg-cardDark border border-borderDark">
+                <div class="flex items-baseline gap-3 mb-4">
+                  <span class="font-mono text-[10px] text-textMuted uppercase tracking-widest">01.</span>
+                  <h3 class="text-base md:text-lg font-medium text-white">Decision <span class="text-brand">Friction</span></h3>
+                </div>
+                <p class="text-sm md:text-base text-gray-400 leading-relaxed">Factor 75 is a subscription-based ready-to-eat meal service designed to help busy individuals maintain a healthy diet with minimal effort.</p>
+              </div>
+              <div class="p-6 md:p-7 rounded-2xl bg-cardDark border border-borderDark">
+                <div class="flex items-baseline gap-3 mb-4">
+                  <span class="font-mono text-[10px] text-textMuted uppercase tracking-widest">02.</span>
+                  <h3 class="text-base md:text-lg font-medium text-white">Core <span class="text-brand">Values</span></h3>
+                </div>
+                <div class="flex flex-wrap gap-x-5 gap-y-2 mb-4 font-mono text-xs md:text-sm uppercase tracking-wide text-brand">
+                  <span>#Efficiency</span><span>#Simplicity</span><span>#Balance</span>
+                </div>
+                <p class="text-sm md:text-base text-gray-400 leading-relaxed">Focused on convenience and efficiency, <br class="hidden md:block">Factor provides chef-prepared, nutritionally balanced meals that are ready to eat with no cooking required.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 03 / USER INTERVIEW -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">User Interview</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-5">02. Identifying User Friction</h2>
+            <p class="text-lg md:text-xl font-medium text-white max-w-4xl leading-relaxed mb-4">While efficiency and convenience are Factor's core strengths, the current UX <br class="md:hidden">does not fully communicate or support <br class="md:hidden">these values.</p>
+            <p class="font-mono text-[10px] uppercase tracking-widest text-textMuted mb-8">Feb 2026 · Young adults in their 20s–30s with prior Factor experience</p>
+            <img src="assets/img-04.webp" alt="Factor user interview insights" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%] rounded-2xl">
+          </section>
+
+          <!-- 04 / DESIGN SYSTEM -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">DESIGN SYSTEM</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-5">03. Building a Consistent Design System</h2>
+            <p class="text-base md:text-xl text-gray-300 max-w-5xl leading-relaxed mb-10 md:whitespace-nowrap">Systematized design elements to create a consistent brand experience and intuitive user flow.</p>
+            <img src="assets/img-05.webp" alt="Factor design system overview" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%] rounded-2xl">
+          </section>
+
+          <!-- 05 / AS IS TO BE -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">As Is vs To Be</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">04. Restructuring the Experience</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">Analyzed issues in the existing user flow and proposed improvements for a more intuitive and efficient experience.</p>
+            <div class="md:hidden space-y-4">
+              <div class="p-4 rounded-2xl bg-cardDark border border-borderDark">
+                <div class="text-sm font-medium text-white mb-3">Messaging</div>
+                <div class="space-y-2.5">
+                  <div class="p-3 rounded-xl bg-black/20 border border-borderDark">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted block mb-1.5">As-Is</span>
+                    <p class="text-xs text-gray-400 leading-relaxed">Key information and brand messaging lack visibility.</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-brand/10 border border-brand/30">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-brand block mb-1.5">To Be</span>
+                    <p class="text-xs text-brand leading-relaxed"><span class="md:hidden whitespace-nowrap">Clear messaging enables instant understanding.</span><span class="hidden md:inline">Clear messaging and visuals enable instant understanding.</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-cardDark border border-borderDark">
+                <div class="text-sm font-medium text-white mb-3">Purchase Flow</div>
+                <div class="space-y-2.5">
+                  <div class="p-3 rounded-xl bg-black/20 border border-borderDark">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted block mb-1.5">As-Is</span>
+                    <p class="text-xs text-gray-400 leading-relaxed">Payment before finalizing the menu burdens users.</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-brand/10 border border-brand/30">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-brand block mb-1.5">To Be</span>
+                    <p class="text-xs text-brand leading-relaxed">Clarified the flow by moving payment after menu selection.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-cardDark border border-borderDark">
+                <div class="text-sm font-medium text-white mb-3">Onboarding / Setup</div>
+                <div class="space-y-2.5">
+                  <div class="p-3 rounded-xl bg-black/20 border border-borderDark">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted block mb-1.5">As-Is</span>
+                    <p class="text-xs text-gray-400 leading-relaxed">Too many onboarding questions create high entry friction.</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-brand/10 border border-brand/30">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-brand block mb-1.5">To Be</span>
+                    <p class="text-xs text-brand leading-relaxed">Reduced onboarding friction by minimizing sign-up questions.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-cardDark border border-borderDark">
+                <div class="text-sm font-medium text-white mb-3">Menu Selection</div>
+                <div class="space-y-2.5">
+                  <div class="p-3 rounded-xl bg-black/20 border border-borderDark">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted block mb-1.5">As-Is</span>
+                    <p class="text-xs text-gray-400 leading-relaxed">Manual menu selection creates a passive experience.</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-brand/10 border border-brand/30">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-brand block mb-1.5">To Be</span>
+                    <p class="text-xs text-brand leading-relaxed">Guided menu selection using filters and recommendation features.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hidden md:grid md:grid-cols-[170px_minmax(0,1fr)_minmax(0,1fr)] gap-3 items-stretch">
+              <div class="hidden md:block"></div>
+              <div class="px-4 py-2.5 rounded-xl border border-borderDark bg-black/20 font-mono text-[10px] uppercase tracking-[0.18em] text-textMuted text-center">As-Is</div>
+              <div class="px-4 py-2.5 rounded-xl border border-brand/30 bg-brand/10 font-mono text-[10px] uppercase tracking-[0.18em] text-brand text-center">To Be</div>
+
+              <div class="px-4 py-3 rounded-xl bg-cardDark border border-borderDark text-white flex flex-col items-center justify-center text-center min-h-[92px]">
+                <div class="text-[0.95rem] md:text-[1rem] font-medium leading-snug tracking-tight">Messaging</div>
+              </div>
+              <div class="px-4 py-3 rounded-xl bg-cardDark border border-borderDark text-gray-400 text-sm md:text-[14px] leading-relaxed flex items-center min-h-[92px]">Key information and brand messaging lack visibility.</div>
+              <div class="px-4 py-3 rounded-xl bg-brand/10 border border-brand/30 text-brand text-sm md:text-[14px] leading-relaxed flex items-center min-h-[92px]">Clear messaging and visuals enable instant understanding.</div>
+
+              <div class="px-4 py-3 rounded-xl bg-cardDark border border-borderDark text-white flex flex-col items-center justify-center text-center min-h-[92px]">
+                <div class="text-[0.95rem] md:text-[1rem] font-medium leading-snug tracking-tight">Purchase Flow</div>
+              </div>
+              <div class="px-4 py-3 rounded-xl bg-cardDark border border-borderDark text-gray-400 text-sm md:text-[14px] leading-relaxed flex items-center min-h-[92px]">Payment before finalizing the menu burdens users.</div>
+              <div class="px-4 py-3 rounded-xl bg-brand/10 border border-brand/30 text-brand text-sm md:text-[14px] leading-relaxed flex items-center min-h-[92px]">Clarified the flow by moving payment after menu selection.</div>
+
+              <div class="px-4 py-3 rounded-xl bg-cardDark border border-borderDark text-white flex flex-col items-center justify-center text-center min-h-[92px]">
+                <div class="text-[0.95rem] md:text-[1rem] font-medium leading-snug tracking-tight">Onboarding /<br>Setup</div>
+              </div>
+              <div class="px-4 py-3 rounded-xl bg-cardDark border border-borderDark text-gray-400 text-sm md:text-[14px] leading-relaxed flex items-center min-h-[92px]">Too many onboarding questions create high entry friction.</div>
+              <div class="px-4 py-3 rounded-xl bg-brand/10 border border-brand/30 text-brand text-sm md:text-[14px] leading-relaxed flex items-center min-h-[92px]">Reduced onboarding friction by minimizing sign-up questions.</div>
+
+              <div class="px-4 py-3 rounded-xl bg-cardDark border border-borderDark text-white flex flex-col items-center justify-center text-center min-h-[92px]">
+                <div class="text-[0.95rem] md:text-[1rem] font-medium leading-snug tracking-tight">Menu Selection</div>
+              </div>
+              <div class="px-4 py-3 rounded-xl bg-cardDark border border-borderDark text-gray-400 text-sm md:text-[14px] leading-relaxed flex items-center min-h-[92px]">Manual menu selection creates a passive experience.</div>
+              <div class="px-4 py-3 rounded-xl bg-brand/10 border border-brand/30 text-brand text-sm md:text-[14px] leading-relaxed flex items-center min-h-[92px]">Guided menu selection using filters and recommendation features.</div>
+            </div>
+          </section>
+
+          <!-- 06 / HOMEPAGE MESSAGING -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Homepage</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">05. A Hero Banner with Clear, One-Line Messaging</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">The homepage was restructured around concise messaging, replacing lengthy explanations to clearly communicate the brand's core value.</p>
+            <div class="overflow-visible"><img src="assets/img-06.webp" alt="Factor homepage messaging concept" class="w-[112%] md:w-[116%] max-w-none h-auto block rounded-2xl -ml-[6%] md:-ml-[8%]" style="transform-origin:center;"></div>
+          </section>
+
+          <!-- 07 / SOCIAL PROOF -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Homepage</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">06. Trust Through Social Proof</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">Highlighted social media content and performance metrics to visually communicate credibility to new users.</p>
+            <img src="assets/img-07.webp" alt="Factor homepage social proof redesign" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%]">
+          </section>
+
+          <!-- 08 / ONBOARDING FLOW -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Onboarding Flow</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">07. Restructured Onboarding Flow</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">Mandatory pre-plan questions were reduced, flexible<br class="md:hidden"> preference settings were moved into the menu experience, and payment was moved after meal<br class="md:hidden"> selection.</p>
+            <img src="assets/img-08.webp" alt="Factor onboarding and payment flow comparison" class="w-[110%] md:w-[116%] max-w-none h-auto block -ml-[5%] md:-ml-[8%]">
+          </section>
+
+          <!-- 09 / PURCHASE FLOW -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Purchase Flow</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">08. Redesigned Onboarding Flow</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">Simplified onboarding by removing unnecessary steps<br class="md:hidden"> and restructuring the process from menu&nbsp;selection <br class="hidden md:block">to payment.</p>
+            <img src="assets/img-09.webp" alt="Factor redesigned onboarding flow" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%]">
+          </section>
+
+          <!-- 10 / PLAN PAGE -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Plan Page</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">09. Retaining Recommendations, Simplifying the Flow</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">Moved plan-recommendation questions into a popup, keeping the main onboarding flow concise and clear.</p>
+            <img src="assets/img-10.webp" alt="Factor plan recommendation redesign" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%]">
+          </section>
+
+          <!-- 11 / PICK MEALS FILTERS -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Pick Meals Page</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">10. Menu Structure for Easy Navigation</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-5xl leading-relaxed mb-8 md:whitespace-nowrap">Improved meal selection so users can quickly find desired meals and understand nutritional composition at a glance.</p>
+            <img src="assets/img-11.webp" alt="Factor meal filters and nutrition calculator" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%]">
+          </section>
+
+          <!-- 12 / PICK MEALS RECOMMENDATION -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Pick Meals Page</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">11. Reducing Choice Overload with Recommendations</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">Added AI-powered menu recommendations to reduce decision fatigue and help users quickly <br class="hidden md:block">create a meal plan tailored to them.</p>
+            <img src="assets/img-12.webp" alt="Factor AI-driven meal recommendations" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%]">
+          </section>
+
+          <!-- 13 / CHECKOUT -->
+          <section>
+            <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Checkout & Confirmation</div>
+            <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">12. Consistent Design Across the Entire Journey</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">Redesigned the payment, address entry, and order confirmation screens with a consistent design, ensuring a seamless user flow.</p>
+            <img src="assets/img-13.webp" alt="Factor checkout and subscription confirmation" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%]">
+          </section>
+        </div>
+      `,
+      'beli': `
+        <!-- 01 / COVER -->
+        <div class="mb-8 border-b border-borderDark pb-8">
+          <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-6 font-semibold">Product Redesign</div>
+          <h1 class="text-4xl md:text-6xl font-sans font-medium text-white mb-6 tracking-tight">Beli App UX/UI Redesign</h1>
+          <p class="text-lg md:text-xl font-sans text-gray-400 mb-8 max-w-3xl leading-relaxed">
+            <span class="md:hidden">This project focuses on refining Beli’s core<br><span class="whitespace-nowrap">experiences—tracking and ranking—and</span><br>creating a more intuitive, user-centered UX.</span><span class="hidden md:inline">This project focuses on refining Beli’s core experiences—tracking and ranking—and creating a more intuitive, user-centered UX.</span>
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-[max-content_max-content_max-content] gap-y-5 md:gap-y-0 md:gap-x-14 font-sans text-sm text-white pt-4 md:pt-8">
+            <div class="md:whitespace-nowrap"><span class="block text-textMuted mb-1 text-[10px] uppercase tracking-widest font-mono">Date</span>2026.03 - 2026.05</div>
+            <div class="md:whitespace-nowrap"><span class="block text-textMuted mb-1 text-[10px] uppercase tracking-widest font-mono">Contribution</span>Personal Project</div>
+            <div class="md:whitespace-nowrap"><span class="block text-textMuted mb-1 text-[10px] uppercase tracking-widest font-mono">Role</span>UX Planning, UI Design</div>
+          </div>
+        </div>
+
+        <div class="space-y-24 font-sans text-gray-300">
+
+          <!-- Main Hero Mockup -->
+          <div class="w-full flex justify-center">
+            <img
+              src="assets/img-14.webp"
+              alt="Beli App Redesign Main Mockup"
+              class="w-[94%] md:w-[90%] max-w-[820px] h-auto block"
+            >
+          </div>
+
+          <!-- 02 / ABOUT BELI -->
+          <section style="margin-top: 2.75rem;">
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">Introduce</div>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-10">01. About Beli</h2>
+
+            <div class="space-y-10 max-w-4xl">
+              <div>
+                <div class="flex items-baseline gap-3 mb-3">
+                  <span class="font-mono text-[10px] text-textMuted uppercase tracking-widest">01.</span>
+                  <h3 class="text-base md:text-lg font-medium text-white">Main <span class="text-beliOrange">Function</span></h3>
+                </div>
+                <p class="text-sm md:text-base text-gray-400 leading-relaxed">
+                  Beli is a food journaling platform that lets users track restaurants they visit and build personalized rankings<br>from their experiences.
+                </p>
+              </div>
+
+              <div>
+                <div class="flex items-baseline gap-3 mb-4">
+                  <span class="font-mono text-[10px] text-textMuted uppercase tracking-widest">02.</span>
+                  <h3 class="text-base md:text-lg font-medium text-white">Core <span class="text-beliOrange">Values</span></h3>
+                </div>
+
+                <div class="flex flex-wrap gap-x-5 gap-y-2 mb-4 font-mono text-xs md:text-sm uppercase tracking-wide text-beliOrange">
+                  <span>#Memory</span>
+                  <span>#Personalization</span>
+                  <span>#Discovery</span>
+                </div>
+
+                <p class="text-sm md:text-base text-gray-400 leading-relaxed">
+                  The platform is designed to go beyond basic restaurant discovery, enabling users to record experiences, compare them, and develop their personal preferences.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 03 / USER RESEARCH -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">User Research</div>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-5">02. Understanding User Pain Points</h2>
+            <p class="text-[16px] md:text-xl font-medium text-white max-w-4xl leading-relaxed mb-10 tracking-[-0.01em] md:tracking-normal">
+              <span class="md:hidden"><span class="whitespace-nowrap">To understand Beli users’ behavior patterns</span><br><span class="whitespace-nowrap">and pain points, I analyzed both interviews</span><br><span>and survey responses.</span></span><span class="hidden md:inline">To understand Beli users’ behavior patterns and pain points, I analyzed both interviews <br class="hidden md:block">and survey responses.</span>
+            </p>
+
+            <div class="space-y-6">
+              <div class="p-6 md:p-8 rounded-2xl bg-cardDark border border-borderDark">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange">#Filter</span>
+                  <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted">Survey</span>
+                </div>
+                <h3 class="text-base md:text-lg font-medium text-white mb-5">What do you find inconvenient about using filters?</h3>
+
+                <div class="space-y-4 text-sm">
+                  <div class="grid grid-cols-[42px_1fr_auto] md:grid-cols-[42px_minmax(0,680px)_auto] gap-x-4 gap-y-1 items-baseline">
+                    <span class="font-mono text-beliOrange">1st</span>
+                    <p class="text-gray-300">Filters are inconsistent and overly fragmented.</p>
+                    <span class="font-mono text-beliOrange">65%</span>
+                  </div>
+                  <div class="grid grid-cols-[42px_1fr_auto] md:grid-cols-[42px_minmax(0,680px)_auto] gap-x-4 gap-y-1 items-baseline">
+                    <span class="font-mono text-beliOrange">2nd</span>
+                    <p class="text-gray-300">Search-based filtering feels cumbersome.</p>
+                    <span class="font-mono text-beliOrange">60%</span>
+                  </div>
+                  <div class="grid grid-cols-[42px_1fr_auto] md:grid-cols-[42px_minmax(0,680px)_auto] gap-x-4 gap-y-1 items-baseline">
+                    <span class="font-mono text-beliOrange">3rd</span>
+                    <p class="text-gray-300">It is difficult to quickly set desired criteria.</p>
+                    <span class="font-mono text-beliOrange">45%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 rounded-2xl bg-cardDark border border-borderDark">
+                  <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-4">#Recording #Rating</span>
+                  <h3 class="text-sm md:text-base font-medium text-white mb-5">What is the biggest challenge when logging restaurants?</h3>
+
+                  <div class="space-y-4">
+                    <div>
+                      <div class="flex justify-between gap-3 text-xs mb-2">
+                        <span>Unclear rating criteria</span><span class="font-mono text-beliOrange">60%</span>
+                      </div>
+                      <div class="h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-beliOrange rounded-full" style="width:60%"></div></div>
+                    </div>
+                    <div>
+                      <div class="flex justify-between gap-3 text-xs mb-2">
+                        <span>Limited rating options</span><span class="font-mono text-beliOrange">55%</span>
+                      </div>
+                      <div class="h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-beliOrange rounded-full" style="width:55%"></div></div>
+                    </div>
+                    <div>
+                      <div class="flex justify-between gap-3 text-xs mb-2">
+                        <span class="text-gray-500">Tedious logging process</span><span class="font-mono text-gray-500">5%</span>
+                      </div>
+                      <div class="h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-beliOrange/40 rounded-full" style="width:5%"></div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-cardDark border border-borderDark">
+                  <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-4">#Tracking</span>
+                  <h3 class="text-sm md:text-base font-medium text-white mb-5">What difficulties do you face when finding past restaurant records?</h3>
+
+                  <div class="space-y-4">
+                    <div>
+                      <div class="flex justify-between gap-3 text-xs mb-2">
+                        <span>Difficult to find records</span><span class="font-mono text-beliOrange">75%</span>
+                      </div>
+                      <div class="h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-beliOrange rounded-full" style="width:75%"></div></div>
+                    </div>
+                    <div>
+                      <div class="flex justify-between gap-3 text-xs mb-2">
+                        <span>Difficult to recall visit dates</span><span class="font-mono text-beliOrange">55%</span>
+                      </div>
+                      <div class="h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-beliOrange rounded-full" style="width:55%"></div></div>
+                    </div>
+                    <div>
+                      <div class="flex justify-between gap-3 text-xs mb-2">
+                        <span>Overwhelming list volume</span><span class="font-mono text-beliOrange">50%</span>
+                      </div>
+                      <div class="h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-beliOrange rounded-full" style="width:50%"></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-6 md:p-8 rounded-2xl bg-white/[0.025] border border-borderDark">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-5">Interview</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="p-5 rounded-xl bg-white/[0.04] border border-white/[0.04]">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-2">#Filter</span>
+                    <p class="beli-interview-copy text-sm text-gray-400 leading-relaxed"><span class="md:hidden">“The filters feel disorganized. Having to<br>manually search and enter criteria is<br>inconvenient, so I find myself using them<br>less over time.”</span><span class="hidden md:inline">“The filters feel disorganized. Having to manually search and enter criteria is inconvenient, so I find myself using them less over time.”</span></p>
+                  </div>
+                  <div class="p-5 rounded-xl bg-white/[0.04] border border-white/[0.04]">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-2">#Rating</span>
+                    <p class="beli-interview-copy text-sm text-gray-400 leading-relaxed">“Since ratings are limited to broad options like ‘Good,’ ‘Okay,’ or ‘Dislike,’ they fail to capture different aspects of the experience, making rankings feel less accurate.”</p>
+                  </div>
+                  <div class="p-5 rounded-xl bg-white/[0.04] border border-white/[0.04]">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-2">#Ranking</span>
+                    <p class="beli-interview-copy text-sm text-gray-400 leading-relaxed"><span class="md:hidden">“Rankings are determined solely by list<br>order. I’d like a more detailed way to<br>compare&nbsp;experiences.”</span><span class="hidden md:inline">“Rankings are determined solely by list order.<br>I’d like a more detailed way to compare<br>experiences.”</span></p>
+                  </div>
+                  <div class="p-5 rounded-xl bg-white/[0.04] border border-white/[0.04]">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-2">#Tracking</span>
+                    <p class="beli-interview-copy text-sm text-gray-400 leading-relaxed">“As I log more restaurants, it becomes harder to manage them. Finding when and where I visited takes too long, so I rarely look back at my records.”</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 04 / EXISTING UX PROBLEMS -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">Existing UI/UX Problems</div>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">03. Defining Key Areas for Improvement</h2>
+            <p class="text-lg md:text-xl font-medium text-white max-w-4xl leading-relaxed mb-3">
+              Through user research, I identified common pain points in the Beli experience and defined key areas for improvement.
+            </p>
+            <p class="text-sm md:text-base text-gray-400 max-w-3xl leading-relaxed mb-10">
+              I summarized the main issues affecting the user experience across the tracking, ranking, and discovery processes and aimed to define a direction for addressing them.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div class="p-6 rounded-2xl bg-cardDark border border-borderDark">
+                <span class="font-mono text-[10px] text-textMuted uppercase tracking-widest block mb-3">Painpoint 1</span>
+                <h3 class="text-lg font-medium text-white mb-3">Inefficient <span class="text-beliOrange">Filter</span> Structure</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                  An overly fragmented and unorganized filter system, combined with a search-based approach, makes it difficult to set desired criteria and use filters efficiently.
+                </p>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-cardDark border border-borderDark">
+                <span class="font-mono text-[10px] text-textMuted uppercase tracking-widest block mb-3">Painpoint 2</span>
+                <h3 class="text-lg font-medium text-white mb-3">Difficulty Reviewing <span class="text-beliOrange">Records</span></h3>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                  As records accumulate, users must repeatedly search their history to find past visits and recall when and where they occurred, making review inefficient.
+                </p>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-cardDark border border-borderDark">
+                <span class="font-mono text-[10px] text-textMuted uppercase tracking-widest block mb-3">Painpoint 3</span>
+                <h3 class="text-lg font-medium text-white mb-3">Limited <span class="text-beliOrange">Rating</span> System</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                  A single rating system makes it difficult to capture factors such as food, service, and atmosphere, reducing the accuracy and reliability of rankings.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 05 / COMPETITOR ANALYSIS -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">Competitor Analysis & Positioning Map</div>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-5">04. Strategic Positioning</h2>
+            <p class="text-lg md:text-xl font-medium text-white max-w-4xl leading-relaxed mb-3">
+              Unlike similar services, Beli focuses on <span class="text-beliOrange">recording and ranking</span> personal dining experiences.
+            </p>
+            <p class="text-sm md:text-base leading-relaxed text-gray-400 max-w-3xl mb-10">
+              By comparing competitors’ goals and key features, I identified each service’s characteristics and used a positioning map to highlight Beli’s unique user experience and market position.
+            </p>
+
+            <div class="space-y-6">
+              <div class="p-6 md:p-8 rounded-2xl bg-cardDark border border-borderDark">
+                <div class="flex items-center justify-between gap-4 mb-6">
+                  <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange">Competitor Analysis</span>
+                  <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted">4 Services</span>
+                </div>
+
+                <div class="md:hidden space-y-3">
+                  <div class="p-4 rounded-xl bg-white/[0.025] border border-white/[0.06]">
+                    <div class="text-sm font-medium text-white mb-3">Yelp</div>
+                    <div class="grid grid-cols-[112px_1fr] gap-x-3 gap-y-2 text-left">
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Objective</span><span class="text-[11px] text-gray-300">Review Driven Discovery</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Key Actions</span><span class="text-[11px] text-gray-300">Review and Compare</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Data</span><span class="text-[11px] text-gray-300">Reviews and Ratings</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">User Role</span><span class="text-[11px] text-gray-300">Information Consumption</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Experience</span><span class="text-[11px] text-gray-300">Information Driven</span>
+                    </div>
+                  </div>
+                  <div class="p-4 rounded-xl bg-white/[0.025] border border-white/[0.06]">
+                    <div class="text-sm font-medium text-white mb-3">Google Maps</div>
+                    <div class="grid grid-cols-[112px_1fr] gap-x-3 gap-y-2 text-left">
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Objective</span><span class="text-[11px] text-gray-300">Location Based Discovery</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Key Actions</span><span class="text-[11px] text-gray-300">Search and Explore</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Data</span><span class="text-[11px] text-gray-300">Location and Reviews</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">User Role</span><span class="text-[11px] text-gray-300">Information Utilization</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Experience</span><span class="text-[11px] text-gray-300">Context Based</span>
+                    </div>
+                  </div>
+                  <div class="p-4 rounded-xl bg-white/[0.025] border border-white/[0.06]">
+                    <div class="text-sm font-medium text-white mb-3">OpenTable</div>
+                    <div class="grid grid-cols-[112px_1fr] gap-x-3 gap-y-2 text-left">
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Objective</span><span class="text-[11px] text-gray-300">Reservation Service</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Key Actions</span><span class="text-[11px] text-gray-300">Make Reservations</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Data</span><span class="text-[11px] text-gray-300">Reservation Data</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">User Role</span><span class="text-[11px] text-gray-300">Feature Usage</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-textMuted">Experience</span><span class="text-[11px] text-gray-300">Reservation Driven</span>
+                    </div>
+                  </div>
+                  <div class="p-4 rounded-xl bg-beliOrange/10 border border-beliOrange/25">
+                    <div class="text-sm font-medium text-beliOrange mb-3">Beli</div>
+                    <div class="grid grid-cols-[112px_1fr] gap-x-3 gap-y-2 text-left">
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-beliOrange/70">Objective</span><span class="text-[11px] text-beliOrange">Experience Recording</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-beliOrange/70">Key Actions</span><span class="text-[11px] text-beliOrange">Log and Rank</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-beliOrange/70">Data</span><span class="text-[11px] text-beliOrange">Personal Logs and Ratings</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-beliOrange/70">User Role</span><span class="text-[11px] text-beliOrange">Data Creation and Management</span>
+                      <span class="font-mono text-[8px] uppercase tracking-wider text-beliOrange/70">Experience</span><span class="text-[11px] text-beliOrange">Experience Driven</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="hidden md:grid grid-cols-5 gap-2 text-center items-stretch">
+                  <div></div>
+                  <div class="text-sm font-medium text-white py-2">Yelp</div>
+                  <div class="text-sm font-medium text-white py-2">Google Maps</div>
+                  <div class="text-sm font-medium text-white py-2">OpenTable</div>
+                  <div class="text-sm font-medium text-beliOrange py-2">Beli</div>
+
+                  <div class="flex items-center text-left text-[9px] md:text-[10px] uppercase tracking-widest font-mono text-textMuted pr-2">Service Objective</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Review Driven<br>Discovery</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Location Based<br>Discovery</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Reservation<br>Service</div>
+                  <div class="p-3 rounded-xl bg-beliOrange/10 border border-beliOrange/20 text-xs text-beliOrange">Experience<br>Recording</div>
+
+                  <div class="flex items-center text-left text-[9px] md:text-[10px] uppercase tracking-widest font-mono text-textMuted pr-2">Key Actions</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Review and<br>Compare</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Search and<br>Explore</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Make<br>Reservations</div>
+                  <div class="p-3 rounded-xl bg-beliOrange/10 border border-beliOrange/20 text-xs text-beliOrange flex items-center justify-center text-center">Log and Rank</div>
+
+                  <div class="flex items-center text-left text-[9px] md:text-[10px] uppercase tracking-widest font-mono text-textMuted pr-2">Data Structure</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Reviews and<br>Ratings</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Location and<br>Reviews</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Reservation<br>Data</div>
+                  <div class="p-3 rounded-xl bg-beliOrange/10 border border-beliOrange/20 text-xs text-beliOrange">Personal Logs<br>and Ratings</div>
+
+                  <div class="flex items-center text-left text-[9px] md:text-[10px] uppercase tracking-widest font-mono text-textMuted pr-2">User Role</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Information<br>Consumption</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Information<br>Utilization</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs flex items-center justify-center text-center">Feature Usage</div>
+                  <div class="p-3 rounded-xl bg-beliOrange/10 border border-beliOrange/20 text-xs text-beliOrange">Data Creation<br>and Management</div>
+
+                  <div class="flex items-center text-left text-[9px] md:text-[10px] uppercase tracking-widest font-mono text-textMuted pr-2">Experience Focus</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Information<br>Driven</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs flex items-center justify-center text-center">Context Based</div>
+                  <div class="p-3 rounded-xl bg-white/[0.035] text-xs">Reservation<br>Driven</div>
+                  <div class="p-3 rounded-xl bg-beliOrange/10 border border-beliOrange/20 text-xs text-beliOrange">Experience<br>Driven</div>
+                </div>
+              </div>
+
+              <div class="p-6 md:p-8 rounded-2xl bg-white/[0.025] border border-borderDark">
+                <div class="flex items-center justify-between gap-4 mb-6">
+                  <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange">Positioning Map</span>
+                  <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted">Market Position</span>
+                </div>
+
+                <div class="md:hidden">
+                  <div class="relative w-full h-[390px] pt-8 pb-8 px-7">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 font-mono text-[9px] uppercase tracking-widest text-beliOrange whitespace-nowrap">Recording Focus</div>
+                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 font-mono text-[9px] uppercase tracking-widest text-textMuted whitespace-nowrap">Discovery Focused</div>
+                    <div class="absolute left-0 top-1/2 -translate-y-1/2 -rotate-90 origin-center font-mono text-[8px] uppercase tracking-wider text-textMuted whitespace-nowrap">Social</div>
+                    <div class="absolute right-0 top-1/2 -translate-y-1/2 rotate-90 origin-center font-mono text-[8px] uppercase tracking-wider text-beliOrange whitespace-nowrap">Personal</div>
+
+                    <div class="absolute left-10 right-10 top-8 bottom-8 grid grid-cols-2 grid-rows-2 gap-1.5">
+                      <div class="rounded-xl bg-white/[0.035]"></div>
+                      <div class="rounded-xl bg-beliOrange/10 border border-beliOrange/20"></div>
+                      <div class="rounded-xl bg-white/[0.025]"></div>
+                      <div class="rounded-xl bg-white/[0.025]"></div>
+                    </div>
+
+                    <div class="absolute left-[42%] top-[31%] -translate-x-1/2 -translate-y-1/2 text-center">
+                      <div class="w-9 h-9 rounded-lg bg-white/10 border border-white/10 flex items-center justify-center text-[10px] font-semibold text-gray-300">beli</div>
+                      <span class="text-[8px] text-textMuted block mt-1">Current</span>
+                    </div>
+                    <div class="absolute left-[70%] top-[27%] -translate-x-1/2 -translate-y-1/2 text-center">
+                      <div class="w-11 h-11 rounded-xl bg-white text-[#1f6f8b] flex items-center justify-center text-sm font-bold shadow-lg">beli</div>
+                      <span class="text-[8px] text-beliOrange block mt-1">Target</span>
+                    </div>
+                    <div class="absolute left-[49%] top-[28%] w-[12%] border-t border-dashed border-beliOrange"></div>
+
+                    <div class="absolute left-[30%] top-[69%] -translate-x-1/2 -translate-y-1/2 text-center">
+                      <div class="w-8 h-8 mx-auto rounded-lg bg-white/10 flex items-center justify-center text-[10px] font-semibold text-gray-300">Y</div>
+                      <span class="text-[8px] text-textMuted block mt-1">Yelp</span>
+                    </div>
+                    <div class="absolute left-[24%] top-[82%] -translate-x-1/2 -translate-y-1/2 text-center">
+                      <div class="w-8 h-8 mx-auto rounded-lg bg-white/10 flex items-center justify-center text-[10px] font-semibold text-gray-300">G</div>
+                      <span class="text-[8px] text-textMuted block mt-1 whitespace-nowrap">Google Maps</span>
+                    </div>
+                    <div class="absolute left-[57%] top-[82%] -translate-x-1/2 -translate-y-1/2 text-center">
+                      <div class="w-8 h-8 mx-auto rounded-lg bg-white/10 flex items-center justify-center text-[10px] font-semibold text-gray-300">O</div>
+                      <span class="text-[8px] text-textMuted block mt-1">OpenTable</span>
+                    </div>
+                  </div>
+                  <div class="mt-3 p-3.5 rounded-xl bg-white text-black text-center text-xs font-medium leading-relaxed shadow-xl">
+                    Strengthen personal records for a <br class="md:hidden">differentiated experience.
+                  </div>
+                </div>
+                  <div class="hidden md:block relative w-full max-w-[760px] aspect-[16/9] mx-auto">
+                  <div class="absolute top-0 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-widest text-beliOrange">Recording Focus</div>
+                  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-widest text-textMuted">Discovery Focused</div>
+                  <div class="absolute left-0 top-1/2 -translate-y-1/2 -rotate-90 origin-center font-mono text-[10px] uppercase tracking-widest text-textMuted">Social Focused</div>
+                  <div class="absolute right-0 top-1/2 -translate-y-1/2 rotate-90 origin-center font-mono text-[10px] uppercase tracking-widest text-beliOrange">Personal Focused</div>
+
+                  <div class="absolute inset-x-14 md:inset-x-20 top-10 bottom-10 grid grid-cols-2 grid-rows-2 gap-2">
+                    <div class="rounded-2xl bg-white/[0.035]"></div>
+                    <div class="rounded-2xl bg-beliOrange/10 border border-beliOrange/20"></div>
+                    <div class="rounded-2xl bg-white/[0.025]"></div>
+                    <div class="rounded-2xl bg-white/[0.025]"></div>
+                  </div>
+
+                  <div class="absolute left-[43%] top-[30%] -translate-x-1/2 -translate-y-1/2">
+                    <div class="w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-sm font-semibold text-gray-300">beli</div>
+                  </div>
+
+                  <div class="absolute left-[66%] top-[29%] -translate-x-1/2 -translate-y-1/2">
+                    <div class="w-16 h-16 rounded-xl bg-white text-[#1f6f8b] flex items-center justify-center text-xl font-bold shadow-lg">beli</div>
+                  </div>
+
+                  <div class="absolute left-[48%] top-[29%] w-[13%] border-t border-dashed border-beliOrange"></div>
+
+                  <div class="absolute left-[57%] top-[47%] -translate-x-1/2 -translate-y-1/2">
+                    <div class="relative w-max max-w-[320px] bg-white text-black text-center text-xs md:text-sm font-medium leading-relaxed px-5 py-3 rounded-2xl shadow-xl">
+                      Strengthen personal records<br>for a differentiated experience.
+                      <div class="absolute left-[70%] -translate-x-1/2 -top-2 w-4 h-4 bg-white rotate-45 rounded-[2px]"></div>
+                    </div>
+                  </div>
+
+                  <div class="absolute left-[37%] top-[68%] -translate-x-1/2 -translate-y-1/2 text-center">
+                    <div class="w-9 h-9 mx-auto rounded-lg bg-white/10 flex items-center justify-center text-xs font-semibold text-gray-300">Y</div>
+                    <span class="text-[9px] text-textMuted block mt-1">Yelp</span>
+                  </div>
+                  <div class="absolute left-[30%] top-[79%] -translate-x-1/2 -translate-y-1/2 text-center">
+                    <div class="w-9 h-9 mx-auto rounded-lg bg-white/10 flex items-center justify-center text-xs font-semibold text-gray-300">G</div>
+                    <span class="text-[9px] text-textMuted block mt-1">Google Maps</span>
+                  </div>
+                  <div class="absolute left-[52%] top-[80%] -translate-x-1/2 -translate-y-1/2 text-center">
+                    <div class="w-9 h-9 mx-auto rounded-lg bg-white/10 flex items-center justify-center text-xs font-semibold text-gray-300">O</div>
+                    <span class="text-[9px] text-textMuted block mt-1">OpenTable</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 06 / PROJECT GOAL -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">Project Goal</div>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">05. Expanding the Recording Experience</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-10">
+              <span class="block md:inline">Through user review analysis, I found that users wanted not only to compare restaurants but also to record and revisit their dining experiences.</span><span class="block mt-4 md:inline md:mt-0"><span class="hidden md:inline"> </span>Based on this insight, I strengthened Beli’s core ranking feature while expanding recording capabilities, creating a more connected experience between the two.</span>
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div class="p-6 rounded-2xl bg-cardDark border border-borderDark">
+                <span class="font-mono text-[10px] text-textMuted uppercase tracking-widest block mb-3">Solution 1</span>
+                <h3 class="text-lg font-medium text-white mb-3">Enhanced <span class="text-beliOrange">Ranking System</span></h3>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                  Refined the category-based comparison structure <br class="hidden md:block">and filtering system to organize restaurants more consistently and improve ranking accuracy and reliability.
+                </p>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-cardDark border border-borderDark">
+                <span class="font-mono text-[10px] text-textMuted uppercase tracking-widest block mb-3">Solution 2</span>
+                <h3 class="text-lg font-medium text-white mb-3">Expanded <span class="text-beliOrange">Visit History</span></h3>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                  Created a dedicated page for viewing logged restaurants and photos in one place, making it easier for users to revisit and organize their dining experiences over time.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-6 md:p-8 rounded-2xl bg-[#F25A43] text-white text-center">
+              <span class="font-mono text-[10px] uppercase tracking-widest block mb-3">Final Goal</span>
+              <p class="text-lg md:text-xl font-medium leading-relaxed max-w-3xl mx-auto">
+                This transforms Beli beyond a comparison tool into a platform where users can systematically record and manage their dining&nbsp;experiences.
+              </p>
+            </div>
+          </section>
+
+          <!-- 07 / BRANDING & STYLE GUIDE -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">Branding & Style Guide</div>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">06. Building a More Recognizable Visual System</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-10">
+              While Beli offers a compelling experience, it lacks distinctive visual elements that make the brand instantly recognizable. To address this, I refined the color palette and typography while preserving its clean UI to create <br class="hidden md:block">a more cohesive brand experience.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="p-6 md:p-8 rounded-2xl bg-cardDark border border-borderDark">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-6">Color System</span>
+
+                <div class="space-y-7">
+                  <div>
+                    <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-3">As Is</span>
+                    <div class="h-16 rounded-xl bg-[#154F5C] mb-3 flex items-center px-4 text-xs text-white/70">Primary · #154F5C</div>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                      The existing color palette feels muted and lacks the vibrancy of food experiences.
+                    </p>
+                  </div>
+
+                  <div>
+                    <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-3">To Be</span>
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                      <div class="h-16 rounded-xl bg-[#F25A43] flex items-center px-4 text-xs text-white">Primary · #F25A43</div>
+                      <div class="h-16 rounded-xl bg-[#3E84A7] flex items-center px-4 text-xs text-white">Accent · #3E84A7</div>
+                    </div>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                      A warm and vibrant color palette was introduced to reflect the platform’s focus on dining experiences and journaling.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-6 md:p-8 rounded-2xl bg-cardDark border border-borderDark">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-6">Typography</span>
+                <p class="text-sm text-gray-400 leading-relaxed mb-7">
+                  A condensed sans serif typeface was applied to improve readability and support a modern UI. It enhances information clarity while maintaining a clean and organized visual style.
+                </p>
+
+                <div class="space-y-6">
+                  <div>
+                    <div class="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-1">Barlow Condensed</div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted">Display / Headings</span>
+                  </div>
+                  <div>
+                    <div class="text-2xl md:text-3xl text-gray-300 mb-1">Roboto Condensed</div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted">Body / UI Copy</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- NEW BELI OVERVIEW -->
+          <section class="relative">
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">
+              Overview
+            </div>
+            <!--
+              The image is intentionally oversized and edge-faded so it visually
+              blends into the portfolio background instead of reading like a
+              rectangular image card.
+            -->
+            <div class="relative w-full md:w-[116%] md:-ml-[8%] overflow-visible">
+              <img
+                src="assets/img-15.webp"
+                alt="Meet the New Beli overview showing redesigned app screens and key experience updates"
+                class="w-full h-auto block"
+                style="
+                  -webkit-mask-image: radial-gradient(ellipse 96% 92% at 50% 50%, black 76%, rgba(0,0,0,.96) 84%, transparent 100%);
+                  mask-image: radial-gradient(ellipse 96% 92% at 50% 50%, black 76%, rgba(0,0,0,.96) 84%, transparent 100%);
+                "
+              >
+
+              <!-- Soft top/bottom feathering into the site background -->
+              <div class="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-[#0B0D10] to-transparent"></div>
+              <div class="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#0B0D10] to-transparent"></div>
+            </div>
+          </section>
+
+          <!-- 08 / MAIN PAGE -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">
+              Main Page
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">
+              07. Ranking Focused Personalized Home
+            </h2>
+
+            <p class="text-sm md:text-base text-gray-400 max-w-none leading-relaxed mb-8">
+              <span class="md:whitespace-nowrap">The home screen prioritizes personal rankings, while friends’ recent activity is moved to a separate dashboard</span> <br class="hidden md:block">for a more personalized experience.
+            </p>
+
+            <div class="w-full flex justify-center">
+              <img
+                src="assets/img-16.webp"
+                alt="Beli main page redesign"
+                class="w-full md:w-[106%] max-w-[1360px] h-auto block md:translate-x-[2%]"
+              >
+            </div>
+          </section>
+
+          <!-- 09 / RECORD PAGE -->
+          <section>
+            <div class="grid grid-cols-1 xl:grid-cols-[1.02fr_0.98fr] gap-7 md:gap-10 xl:gap-14 items-start">
+
+              <!-- Left: dedicated logging page mockup -->
+              <div class="w-[82%] mx-auto md:w-full order-2 md:order-none">
+                <img
+                  src="assets/img-17.webp"
+                  alt="Beli dedicated logging page shown in a hand-held phone mockup"
+                  class="w-full h-auto block"
+                >
+              </div>
+
+              <!-- Right: explanation + flow -->
+              <div class="contents md:block md:w-full md:pt-2">
+                <div class="order-1 md:order-none">
+                  <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">
+                    Record Page
+                  </div>
+
+                  <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">
+                    08. Expanded Recording Experience
+                  </h2>
+
+                  <p class="text-sm md:text-base text-gray-400 max-w-xl leading-relaxed mb-0 md:mb-9">
+                    Enabled direct access to logging via the + button, shifting from search to a recording-centered flow.
+                  </p>
+                </div>
+
+                <div class="order-3 md:order-none space-y-7 mb-0 md:mb-9">
+                  <div>
+                    <h3 class="text-base md:text-lg font-medium text-beliOrange mb-2">
+                      Dedicated Logging Page
+                    </h3>
+                    <p class="text-xs md:text-sm text-gray-400 max-w-xl leading-relaxed">
+                      Previously, there was no dedicated logging page. <br class="hidden md:block">A separate page was introduced to strengthen <br class="hidden md:block">Beli’s core recording experience.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 class="text-base md:text-lg font-medium text-[#3E8487] mb-2">
+                      Logging Before Rating Flow
+                    </h3>
+                    <p class="text-xs md:text-sm text-gray-400 max-w-xl leading-relaxed">
+                      The flow was reordered to log dining experiences before rating and ranking, allowing users to reflect on their visits and provide more accurate evaluations.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="order-4 md:order-none w-full">
+                  <img
+                    src="assets/img-18.webp"
+                    alt="Beli recording flow comparison showing the AS-IS and TO-BE recording experience"
+                    class="w-full h-auto block"
+                  >
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- 10 / FILTER -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">
+              Filter
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">
+              09. Simplified Filters
+            </h2>
+
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">
+              Based on user research, the filter structure was reorganized around key categories, and selection-based&nbsp;filters were introduced to reduce input errors and streamline the filtering process.
+            </p>
+
+            <div class="w-full flex justify-center">
+              <img
+                src="assets/img-19.webp"
+                alt="Beli filter redesign"
+                class="w-[108%] md:w-[110%] max-w-none h-auto block -ml-[4%] md:-ml-[5%]"
+              >
+            </div>
+          </section>
+
+          <!-- 11 / RATING PAGE -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">
+              Rating Page
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">
+              10. Detailed Rating System
+            </h2>
+
+            <p class="text-sm md:text-base text-gray-400 max-w-5xl leading-relaxed mb-10 md:whitespace-nowrap">
+              Introduced category-based and star-rating systems <br class="md:hidden"> to enable more accurate, personalized restaurant assessments.
+            </p>
+
+            <div class="w-[108%] md:w-[110%] max-w-none -ml-[4%] md:-ml-[5%] flex justify-center overflow-hidden rounded-[2rem] bg-[#0B0D10]">
+              <img
+                src="assets/img-20.webp"
+                alt="Beli rating page redesign"
+                class="w-full h-auto block rounded-[2rem]"
+              >
+            </div>
+          </section>
+
+          <!-- 12 / RANKING PAGE -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">
+              Ranking Page
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">
+              11. Refined Ranking System
+            </h2>
+
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-10">
+              Rankings are based on detailed scores, allowing comparison among restaurants with the same rating to improve accuracy and consistency. When no tie exists, results are applied directly without a tournament.
+            </p>
+
+            <div class="w-full flex justify-center">
+              <img
+                src="assets/img-21.webp"
+                alt="Beli ranking page redesign"
+                class="w-[108%] md:w-[110%] max-w-none h-auto block -ml-[2%] md:-ml-[3%]"
+              >
+            </div>
+          </section>
+
+          <!-- 13 / RECAP PAGE -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">Recap Page</div>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">12. Personal Food Memory Archive</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-10">
+              <span class="md:hidden">A recap page was added to bring together logged restaurants and photos in one place, making it easier<br>to revisit experiences over time.</span><span class="hidden md:inline">A recap page was added to bring together logged restaurants and photos in one place, making it&nbsp;easier&nbsp;to <br class="hidden md:block">revisit experiences over time.</span>
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="p-4 md:p-5 rounded-[1.5rem] bg-cardDark border border-borderDark">
+                <div class="-mx-4 -mt-4 md:-mx-5 md:-mt-5 rounded-t-[1.5rem] overflow-hidden bg-white/[0.03] mb-5 md:flex md:items-start md:justify-center pt-4 pb-3">
+                  <div class="w-[70%] md:w-[82%] mx-auto aspect-[512/780] overflow-hidden rounded-[2rem]">
+                  <img
+                    src="assets/img-22.webp"
+                    alt="Beli recap calendar view"
+                    class="w-full h-full object-cover object-top block"
+                  >
+                  </div>
+                </div>
+                <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-3 text-center md:text-left">Calendar</span>
+                <p class="text-sm text-gray-400 leading-relaxed max-w-[245px] mx-auto md:max-w-none md:mx-0">
+                  Organizes visit records by date, making it easy to see restaurants visited during specific periods.
+                </p>
+              </div>
+
+              <div class="p-4 md:p-5 rounded-[1.5rem] bg-cardDark border border-borderDark">
+                <div class="-mx-4 -mt-4 md:-mx-5 md:-mt-5 rounded-t-[1.5rem] overflow-hidden bg-white/[0.03] mb-5 md:flex md:items-start md:justify-center pt-4 pb-3">
+                  <div class="w-[70%] md:w-[82%] mx-auto aspect-[512/780] overflow-hidden rounded-[2rem]">
+                  <img
+                    src="assets/img-23.webp"
+                    alt="Beli recap album view"
+                    class="w-full h-full object-cover object-top block"
+                  >
+                  </div>
+                </div>
+                <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-3 text-center md:text-left">Album</span>
+                <p class="text-sm text-gray-400 leading-relaxed max-w-[245px] mx-auto md:max-w-none md:mx-0">
+                  Photos uploaded during logging are collected in one place to allow users to view them in an album format.
+                </p>
+              </div>
+
+              <div class="p-4 md:p-5 rounded-[1.5rem] bg-cardDark border border-borderDark">
+                <div class="-mx-4 -mt-4 md:-mx-5 md:-mt-5 rounded-t-[1.5rem] overflow-hidden bg-white/[0.03] mb-5 md:flex md:items-start md:justify-center pt-4 pb-3">
+                  <div class="w-[70%] md:w-[82%] mx-auto aspect-[512/780] overflow-hidden rounded-[2rem]">
+                  <img
+                    src="assets/img-24.webp"
+                    alt="Beli recap map view"
+                    class="w-full h-full object-cover object-top block"
+                  >
+                  </div>
+                </div>
+                <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-3 text-center md:text-left">Map</span>
+                <p class="text-sm text-gray-400 leading-relaxed max-w-[245px] mx-auto md:max-w-none md:mx-0">
+                  Visited restaurants are displayed on a map, with options to explore them by photos or ratings.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 14 / SAVED PAGE -->
+          <section>
+            <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">Saved Page</div>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">13. Improved Saving System</h2>
+            <p class="text-sm md:text-base text-gray-400 max-w-3xl leading-relaxed mb-10">
+              Organize and explore saved restaurants more easily with a category-based structure.
+            </p>
+
+            <div class="w-full">
+              <img
+                src="assets/img-25.webp"
+                alt="Beli saved page redesign"
+                class="w-[108%] md:w-[110%] max-w-none h-auto block object-contain -ml-[4%] md:-ml-[5%]"
+              />
+            </div>
+          </section>
+
+                  </div>
+
+      `
+    };
+
+    const caseStudyModal = document.getElementById('case-study-modal');
+    const caseStudyContent = document.getElementById('case-study-content');
+    const caseStudyHeader = document.getElementById('case-study-title-header');
+
+    window.openCaseStudy = function(projectId) {
+      if(projectId === 'factor') caseStudyHeader.innerText = "Project // Factor Redesign";
+      if(projectId === 'beli') caseStudyHeader.innerText = "Project // Beli App";
+
+      // Always open each project from the very top, even if it was previously closed mid-page.
+      caseStudyModal.scrollTop = 0;
+      caseStudyContent.scrollTop = 0;
+      caseStudyContent.innerHTML = caseStudies[projectId];
+      caseStudyModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      // Reset again after the modal/content has rendered to prevent the browser from restoring old scroll position.
+      requestAnimationFrame(() => {
+        caseStudyModal.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        caseStudyContent.scrollTop = 0;
+      });
+    };
+
+    window.closeCaseStudy = function() {
+      caseStudyModal.classList.remove('open');
+      document.body.style.overflow = 'auto';
+    };
+  </script>
+</body>
+</html>
