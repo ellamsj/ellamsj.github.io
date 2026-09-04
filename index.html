@@ -219,19 +219,36 @@
         max-width: 100vw;
       }
       body p {
-        word-spacing: 0.04em;
-        letter-spacing: 0.003em;
+        word-spacing: 0.018em;
+        letter-spacing: 0.001em;
       }
 
-      /* Give all Factor/Beli project copy a little more breathing room on phones. */
+      /* Responsive mobile typography: readable without forcing awkward orphan lines. */
       #case-study-content p {
-        word-spacing: 0.075em;
-        letter-spacing: 0.004em;
-        line-height: 1.72;
+        word-spacing: 0.032em;
+        letter-spacing: 0.001em;
+        line-height: 1.6;
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: none;
+        text-wrap: pretty;
+      }
+      /* Tighter leading for the larger project-description copy on phones. */
+      #case-study-content p.text-lg {
+        line-height: 1.42;
+      }
+      #case-study-content h1,
+      #case-study-content h2,
+      #case-study-content h3 {
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: none;
+        text-wrap: balance;
       }
       .beli-interview-copy {
-        word-spacing: 0.09em;
-        letter-spacing: 0.005em;
+        word-spacing: 0.038em;
+        letter-spacing: 0.001em;
+        line-height: 1.62;
       }
 
       /* Keep the project header completely stationary on mobile. */
@@ -357,11 +374,11 @@
       </div>
       <div class="flex flex-col items-start md:items-end gap-3">
         <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Filter by Category</span>
-        <div class="flex flex-nowrap gap-1.5 md:gap-2 font-sans text-[13px] md:text-xs whitespace-nowrap">
-          <button onclick="filterDiscipline('all')" id="btn-all" class="filter-btn active px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full bg-white text-black font-medium transition-colors">All</button>
-          <button onclick="filterDiscipline('uiux')" id="btn-uiux" class="filter-btn px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-colors">UI/UX</button>
-          <button onclick="filterDiscipline('branding')" id="btn-branding" class="filter-btn px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-colors">Branding</button>
-          <button onclick="filterDiscipline('graphic')" id="btn-graphic" class="filter-btn px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-colors">Graphics</button>
+        <div class="flex flex-nowrap gap-1 md:gap-2 font-sans text-[12px] min-[390px]:text-[13px] md:text-xs whitespace-nowrap overflow-x-auto max-w-full hide-scrollbar">
+          <button onclick="filterDiscipline('all')" id="btn-all" class="filter-btn active px-2.5 min-[390px]:px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full bg-white text-black font-medium transition-colors">All</button>
+          <button onclick="filterDiscipline('uiux')" id="btn-uiux" class="filter-btn px-2.5 min-[390px]:px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-colors">UI/UX</button>
+          <button onclick="filterDiscipline('branding')" id="btn-branding" class="filter-btn px-2.5 min-[390px]:px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-colors">Branding</button>
+          <button onclick="filterDiscipline('graphic')" id="btn-graphic" class="filter-btn px-2.5 min-[390px]:px-3 md:px-4 py-2.5 md:py-2 min-h-[40px] md:min-h-0 rounded-full text-textMuted hover:text-white hover:bg-white/5 transition-colors">Graphics</button>
         </div>
       </div>
     </div>
@@ -673,7 +690,7 @@
           <section>
             <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">User Interview</div>
             <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-5">02. Identifying User Friction</h2>
-            <p class="text-lg md:text-xl font-medium text-white max-w-4xl leading-relaxed mb-4">While efficiency and convenience are Factor's core strengths, the current UX <br class="md:hidden">does not fully communicate or support <br class="md:hidden">these values.</p>
+            <p class="text-lg md:text-xl font-medium text-white max-w-4xl leading-relaxed mb-4">While efficiency and convenience are Factor's core strengths, the current UX does not fully communicate or support these values.</p>
             <p class="font-mono text-[10px] uppercase tracking-widest text-textMuted mb-8">Feb 2026 · Young adults in their 20s–30s with prior Factor experience</p>
             <img src="assets/img-04.png" alt="Factor user interview insights" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%] rounded-2xl">
           </section>
@@ -799,7 +816,7 @@
           <section>
             <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Onboarding Flow</div>
             <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">07. Restructured Onboarding Flow</h2>
-            <p class="text-sm md:text-base text-gray-400 max-w-4xl md:max-w-5xl leading-relaxed mb-8">Mandatory pre-plan questions were reduced, flexible<br class="md:hidden"> preference settings were moved into the menu experience, and payment was moved after meal<br class="md:hidden"> selection.</p>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl md:max-w-5xl leading-relaxed mb-8">Mandatory pre-plan questions were reduced, flexible preference settings were moved into the menu experience, and payment was moved after meal selection.</p>
             <img src="assets/img-08.png" alt="Factor onboarding and payment flow comparison" class="w-[110%] md:w-[116%] max-w-none h-auto block -ml-[5%] md:-ml-[8%]">
           </section>
 
@@ -807,7 +824,7 @@
           <section>
             <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Purchase Flow</div>
             <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">08. Redesigned Onboarding Flow</h2>
-            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8 md:whitespace-nowrap">Simplified onboarding by removing unnecessary<br class="md:hidden"> steps and restructuring the process from menu&nbsp;selection to payment.</p>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8 md:whitespace-nowrap">Simplified onboarding by removing unnecessary steps and restructuring the process from menu&nbsp;selection to payment.</p>
             <img src="assets/img-09.png" alt="Factor redesigned onboarding flow" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%]">
           </section>
 
@@ -823,7 +840,7 @@
           <section>
             <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Pick Meals Page</div>
             <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">10. Menu Structure for Easy Navigation</h2>
-            <p class="text-sm md:text-base text-gray-400 max-w-5xl leading-relaxed mb-8 md:whitespace-nowrap"><span class="md:hidden">Improved meal selection so users can quickly find desired meals and understand nutritional composition<br>at a glance.</span><span class="hidden md:inline">Improved meal selection so users can quickly find desired meals and understand nutritional composition at a glance.</span></p>
+            <p class="text-sm md:text-base text-gray-400 max-w-5xl leading-relaxed mb-8 md:whitespace-nowrap">Improved meal selection so users can quickly find desired meals and understand nutritional composition at a glance.</p>
             <img src="assets/img-11.png" alt="Factor meal filters and nutrition calculator" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%]">
           </section>
 
@@ -839,7 +856,7 @@
           <section>
             <div class="font-mono text-[10px] text-brand uppercase tracking-widest mb-4 font-semibold">Checkout & Confirmation</div>
             <h2 class="factor-section-title text-2xl md:text-3xl font-semibold text-white mb-4">12. Consistent Design Across the Entire Journey</h2>
-            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8"><span class="md:hidden">Redesigned the payment, address entry, and order confirmation screens with a consistent design, ensuring<br>a seamless user flow.</span><span class="hidden md:inline">Redesigned the payment, address entry, and order confirmation screens with a consistent design, ensuring a seamless user flow.</span></p>
+            <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">Redesigned the payment, address entry, and order confirmation screens with a consistent design, ensuring a seamless user flow.</p>
             <img src="assets/img-13.png" alt="Factor checkout and subscription confirmation" class="w-[112%] md:w-[118%] max-w-none h-auto block -ml-[6%] md:-ml-[9%]">
           </section>
         </div>
@@ -850,7 +867,7 @@
           <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-6 font-semibold">Product Redesign</div>
           <h1 class="text-4xl md:text-6xl font-sans font-medium text-white mb-6 tracking-tight">Beli App UX/UI Redesign</h1>
           <p class="text-lg md:text-xl font-sans text-gray-400 mb-8 max-w-3xl leading-relaxed">
-            <span class="md:hidden">This project focuses on refining Beli’s core<br><span class="whitespace-nowrap">experiences—tracking and ranking—and</span><br>creating a more intuitive, user-centered UX.</span><span class="hidden md:inline">This project focuses on refining Beli’s core experiences—tracking and ranking—and creating a more intuitive, user-centered UX.</span>
+            This project focuses on refining Beli’s core experiences—tracking and ranking—and creating a more intuitive, user-centered UX.
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-[max-content_max-content_max-content] gap-y-5 md:gap-y-0 md:gap-x-14 font-sans text-sm text-white pt-4 md:pt-8">
@@ -883,7 +900,7 @@
                   <h3 class="text-base md:text-lg font-medium text-white">Main <span class="text-beliOrange">Function</span></h3>
                 </div>
                 <p class="text-sm md:text-base text-gray-400 leading-relaxed">
-                  Beli is a food journaling platform that lets users track restaurants they visit and build personalized rankings<br>from their experiences.
+                  <span class="md:hidden">Beli is a food journaling platform that lets users track restaurants they visit and build personalized rankings from their experiences.</span><span class="hidden md:inline">Beli is a food journaling platform that lets users track restaurants they visit and build personalized rankings<br>from their experiences.</span>
                 </p>
               </div>
 
@@ -911,7 +928,7 @@
             <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">User Research</div>
             <h2 class="text-2xl md:text-3xl font-semibold text-white mb-5">02. Understanding User Pain Points</h2>
             <p class="text-[16px] md:text-xl font-medium text-white max-w-4xl leading-relaxed mb-10 tracking-[-0.01em] md:tracking-normal">
-              <span class="md:hidden"><span class="whitespace-nowrap">To understand Beli users’ behavior patterns</span><br><span class="whitespace-nowrap">and pain points, I analyzed both interviews</span><br><span>and survey responses.</span></span><span class="hidden md:inline">To understand Beli users’ behavior patterns and pain points, I analyzed both interviews <br class="hidden md:block">and survey responses.</span>
+              <span class="md:hidden">To understand Beli users’ behavior patterns and pain points, I analyzed both interviews and survey responses.</span><span class="hidden md:inline">To understand Beli users’ behavior patterns and pain points, I analyzed both interviews <br class="hidden md:block">and survey responses.</span>
             </p>
 
             <div class="space-y-6">
@@ -1000,7 +1017,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="p-5 rounded-xl bg-white/[0.04] border border-white/[0.04]">
                     <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-2">#Filter</span>
-                    <p class="beli-interview-copy text-sm text-gray-400 leading-relaxed"><span class="md:hidden">“The filters feel disorganized. Having to<br>manually search and enter criteria is<br>inconvenient, so I find myself using them<br>less over time.”</span><span class="hidden md:inline">“The filters feel disorganized. Having to manually search and enter criteria is inconvenient, so I find myself using them less over time.”</span></p>
+                    <p class="beli-interview-copy text-sm text-gray-400 leading-relaxed">“The filters feel disorganized. Having to manually search and enter criteria is inconvenient, so I find myself using them less over time.”</p>
                   </div>
                   <div class="p-5 rounded-xl bg-white/[0.04] border border-white/[0.04]">
                     <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-2">#Rating</span>
@@ -1008,7 +1025,7 @@
                   </div>
                   <div class="p-5 rounded-xl bg-white/[0.04] border border-white/[0.04]">
                     <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-2">#Ranking</span>
-                    <p class="beli-interview-copy text-sm text-gray-400 leading-relaxed"><span class="md:hidden">“Rankings are determined solely by list<br>order. I’d like a more detailed way to<br>compare&nbsp;experiences.”</span><span class="hidden md:inline">“Rankings are determined solely by list order.<br>I’d like a more detailed way to compare<br>experiences.”</span></p>
+                    <p class="beli-interview-copy text-sm text-gray-400 leading-relaxed"><span class="md:hidden">“Rankings are determined solely by list order. I’d like a more detailed way to compare experiences.”</span><span class="hidden md:inline">“Rankings are determined solely by list order.<br>I’d like a more detailed way to compare<br>experiences.”</span></p>
                   </div>
                   <div class="p-5 rounded-xl bg-white/[0.04] border border-white/[0.04]">
                     <span class="font-mono text-[10px] uppercase tracking-widest text-beliOrange block mb-2">#Tracking</span>
@@ -1065,7 +1082,7 @@
               Unlike similar services, Beli focuses on <span class="text-beliOrange">recording and ranking</span> personal dining experiences.
             </p>
             <p class="text-sm md:text-base leading-relaxed text-gray-400 max-w-none mb-10">
-              <span class="md:hidden">By comparing competitors’ goals and key features,<br>I identified each service’s characteristics and used<br>a positioning map to highlight Beli’s unique user experience and market position.</span><span class="hidden md:inline md:whitespace-nowrap">By comparing competitors’ goals and key features, I identified each service’s characteristics and used a</span><br class="hidden md:block"><span class="hidden md:inline">positioning map to highlight Beli’s unique user experience and market position.</span>
+              <span class="md:hidden">By comparing competitors’ goals and key features, I identified each service’s characteristics and used a positioning map to highlight Beli’s unique user experience and market position.</span><span class="hidden md:inline md:whitespace-nowrap">By comparing competitors’ goals and key features, I identified each service’s characteristics and used a</span><br class="hidden md:block"><span class="hidden md:inline">positioning map to highlight Beli’s unique user experience and market position.</span>
             </p>
 
             <div class="space-y-6">
@@ -1200,7 +1217,7 @@
                     </div>
                   </div>
                   <div class="mt-3 p-3.5 rounded-xl bg-white text-black text-center text-xs font-medium leading-relaxed shadow-xl">
-                    Strengthen personal records for a <br class="md:hidden">differentiated experience.
+                    Strengthen personal records for a differentiated experience.
                   </div>
                 </div>
                   <div class="hidden md:block relative w-full max-w-[760px] aspect-[16/9] mx-auto">
@@ -1376,7 +1393,7 @@
             </h2>
 
             <p class="text-sm md:text-base text-gray-400 max-w-none leading-relaxed mb-8">
-              <span class="md:whitespace-nowrap">The home screen prioritizes personal rankings, while friends’ recent activity is moved to a separate dashboard for</span><br class="hidden md:block"><span class="md:hidden"> </span>a more personalized experience.
+              <span class="md:hidden">The home screen prioritizes personal rankings, while friends’ recent activity is moved to a separate dashboard for a more personalized experience.</span><span class="hidden md:inline md:whitespace-nowrap">The home screen prioritizes personal rankings, while friends’ recent activity is moved to a separate dashboard for</span><br class="hidden md:block"><span class="hidden md:inline">a more personalized experience.</span>
             </p>
 
             <div class="w-full flex justify-center">
@@ -1460,7 +1477,7 @@
             </h2>
 
             <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-8">
-              Based on user research, the filter structure was reorganized around key categories, and selection-based&nbsp;filters were introduced to reduce input errors<br class="md:hidden"> and streamline the filtering process.
+              Based on user research, the filter structure was reorganized around key categories, and selection-based&nbsp;filters were introduced to reduce input errors and streamline the filtering process.
             </p>
 
             <div class="w-full flex justify-center">
@@ -1483,7 +1500,7 @@
             </h2>
 
             <p class="text-sm md:text-base text-gray-400 max-w-5xl leading-relaxed mb-10 md:whitespace-nowrap">
-              Introduced category-based and star-rating systems <br class="md:hidden"> to enable more accurate, personalized restaurant assessments.
+              Introduced category-based and star-rating systems to enable more accurate, personalized restaurant assessments.
             </p>
 
             <div class="w-[108%] md:w-[110%] max-w-none -ml-[4%] md:-ml-[5%] flex justify-center overflow-hidden rounded-[2rem] bg-[#0B0D10]">
@@ -1523,7 +1540,7 @@
             <div class="font-mono text-[10px] text-beliOrange uppercase tracking-widest mb-4 font-semibold">Recap Page</div>
             <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4">12. Personal Food Memory Archive</h2>
             <p class="text-sm md:text-base text-gray-400 max-w-4xl leading-relaxed mb-10">
-              <span class="md:hidden">A recap page was added to bring together logged restaurants and photos in one place, making it easier<br>to revisit experiences over time.</span><span class="hidden md:inline">A recap page was added to bring together logged restaurants and photos in one place, making it&nbsp;easier&nbsp;to <br class="hidden md:block">revisit experiences over time.</span>
+              <span class="md:hidden">A recap page was added to bring together logged restaurants and photos in one place, making it easier to revisit experiences over time.</span><span class="hidden md:inline">A recap page was added to bring together logged restaurants and photos in one place, making it&nbsp;easier&nbsp;to <br class="hidden md:block">revisit experiences over time.</span>
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
