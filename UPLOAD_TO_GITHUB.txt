@@ -1,0 +1,5 @@
+GitHub Pages upload
+
+Upload index.html, resume.pdf, and the entire assets folder to the repository root.
+Do not upload only this ZIP; unzip it first.
+For GitHub Pages, publish from the main branch / root.
